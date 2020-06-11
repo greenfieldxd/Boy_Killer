@@ -26,20 +26,30 @@ public class IronSourceManager : MonoBehaviour
 
     public void ShowAds()
     {
-        bool available = IronSource.Agent.isRewardedVideoAvailable();
+        StartCoroutine(CheckVideoAvailable(1f));
 
-        if (available)
+    }
+
+    IEnumerator CheckVideoAvailable(float delay)
+    {
+        bool available = IronSource.Agent.isRewardedVideoAvailable();
+        
+        if(available)
         {
             IronSource.Agent.showRewardedVideo();
+        }
+        else
+        {
+            yield return new WaitForSeconds(delay);
+            StartCoroutine(CheckVideoAvailable(1f));
         }
     }
 
 
     void Start()
     {
-        IronSource.Agent.validateIntegration();
-        IronSource.Agent.init(appKey);
         IronSource.Agent.init("c80c4055", IronSourceAdUnits.REWARDED_VIDEO);
+        IronSource.Agent.validateIntegration();
 
         IronSourceEvents.onRewardedVideoAdOpenedEvent += RewardedVideoAdOpenedEvent;
         IronSourceEvents.onRewardedVideoAdClickedEvent += RewardedVideoAdClickedEvent;
@@ -91,6 +101,7 @@ public class IronSourceManager : MonoBehaviour
     //@param - placement - placement object which contains the reward data
     void RewardedVideoAdRewardedEvent(IronSourcePlacement placement)
     {
+        GameManager.Instance.DubleScore();
     }
     //Invoked when the Rewarded Video failed to show
     //@param description - string - contains information about the failure.

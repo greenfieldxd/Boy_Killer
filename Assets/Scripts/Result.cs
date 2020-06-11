@@ -18,7 +18,6 @@ public class Result : MonoBehaviour
     {
         IronSourceManager.Instance.ShowAds();
 
-        GameManager.Instance.DubleScore();
         resultText.text = "Level Complete!!! Your score is " + GameManager.Instance.score;
         buttonAds.SetActive(false);
 
