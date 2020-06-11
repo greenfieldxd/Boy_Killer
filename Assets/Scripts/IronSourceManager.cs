@@ -27,7 +27,6 @@ public class IronSourceManager : MonoBehaviour
     public void ShowAds()
     {
         StartCoroutine(CheckVideoAvailable(1f));
-
     }
 
     IEnumerator CheckVideoAvailable(float delay)
@@ -48,7 +47,7 @@ public class IronSourceManager : MonoBehaviour
 
     void Start()
     {
-        IronSource.Agent.init("c80c4055", IronSourceAdUnits.REWARDED_VIDEO);
+        IronSource.Agent.init(appKey, IronSourceAdUnits.REWARDED_VIDEO);
         IronSource.Agent.validateIntegration();
 
         IronSourceEvents.onRewardedVideoAdOpenedEvent += RewardedVideoAdOpenedEvent;
