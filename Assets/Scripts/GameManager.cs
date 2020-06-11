@@ -39,6 +39,12 @@ public class GameManager : MonoBehaviour
         score ++;
         FacebookManager.Instance.AddScore(1); //plus 1 score
     }
+    
+    public void DubleScore()
+    {
+        score = score * 2;
+    }
+
     public void AddLevelPoints()
     {
         levelPoints ++;
